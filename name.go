@@ -2,6 +2,7 @@ package randname
 
 import (
 	"fmt"
+	"io"
 	"math/rand"
 	"time"
 )
@@ -19,6 +20,10 @@ type (
 	}
 )
 
+//写入文件
+func (u *User) Write(writer io.Writer) {
+	fmt.Fprintf(writer, "%s\t%s\t%s\t%d\t%d\t%d\r\n", u.Username, u.Password, u.Name, u.Year, u.Month, u.Day)
+}
 func (u *User) GenerateUserName() {
 	if u.generateTime == 0 {
 		u.generateTime = 1

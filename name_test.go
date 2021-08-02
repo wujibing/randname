@@ -19,7 +19,7 @@ func TestRand(t *testing.T) {
 		if len(u.Username) > 17 {
 			t.Fatal(u.Username)
 		} else {
-			t.Log(u)
+			u.Write(os.Stdout)
 		}
 	}
 }
