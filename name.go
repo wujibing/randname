@@ -13,17 +13,28 @@ type (
 		Year         uint16
 		Month        uint8
 		Day          uint8
+		Username     string
+		Password     string
 		generateTime uint8
 	}
 )
 
-func (u *User) GenerateUserName() string {
+func (u *User) GenerateUserName() {
 	if u.generateTime == 0 {
 		u.generateTime = 1
-		return fmt.Sprintf("%s%d", u.Pinyin, u.Year)
+		u.Username = fmt.Sprintf("%s%d", u.Pinyin, u.Year)
 	} else {
-		return fmt.Sprintf("%s%d%d", u.Pinyin, u.Year, rand.Intn(1000))
+		size := 17 - len(u.Pinyin) - 4
+		if size < 4 {
+			u.Username = fmt.Sprintf("%s%s", u.Pinyin, RandomBytes(2, 4, false))
+		} else {
+			u.Username = fmt.Sprintf("%s%s%d", u.Pinyin, RandomBytes(2, 4, false), u.Year)
+		}
 	}
+}
+
+func (u *User) GeneratePassword() {
+	u.Password = RandomBytes(8, 10, true)
 }
 
 func Rand() *User {

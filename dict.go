@@ -1,6 +1,9 @@
 package randname
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+)
 
 type (
 	words []rune
@@ -16,8 +19,44 @@ var (
 	pinyin = map[rune]string{
 		20399: "hou", 32736: "cui", 26460: "du", 20613: "fu", 23092: "xian", 32599: "luo", 28504: "pan", 27784: "chen", 31069: "zhu", 38669: "huo", 38451: "yang", 32874: "cong", 23481: "rong", 29020: "yu", 37045: "shao", 30003: "shen", 38742: "jing", 38470: "lu", 37049: "zou", 24247: "kang", 32426: "ji", 23452: "yi", 23002: "yao", 37329: "jin", 20052: "qiao", 27915: "yang", 31243: "cheng", 40654: "li", 23068: "na", 29840: "lu", 24464: "xu", 38639: "wen", 24433: "ying", 26216: "chen", 33778: "fei", 21220: "qin", 33275: "zhen", 33509: "ruo", 26131: "yi", 38678: "lin", 24344: "hong", 20313: "yu", 24278: "liao", 36158: "jia", 32831: "geng", 22925: "yan", 26133: "xin", 26032: "xin", 20140: "jing", 40784: "qi", 26539: "feng", 20202: "yi", 32918: "xiao", 26757: "mei", 38597: "ya", 37041: "qiu", 29618: "ling", 24800: "hui", 26228: "qing", 26195: "xiao", 27462: "xin", 33673: "li", 29788: "yu", 29066: "xiong", 34203: "xue", 29141: "yan", 24935: "hui", 30021: "chang", 38047: "zhong", 20522: "ni", 29822: "jin", 34164: "yun", 35885: "tan", 36842: "di", 29787: "ying", 26446: "li", 33931: "jiang", 25140: "dai", 29579: "wang", 35895: "gu", 29664: "zhu", 26187: "jin", 37011: "deng", 24120: "chang", 23731: "yue", 33495: "miao", 39062: "ying", 26790: "meng", 24352: "zhang", 26041: "fang", 23380: "kong", 32735: "di", 29738: "qi", 29642: "shan", 21016: "liu", 31456: "zhang", 38745: "jing", 33452: "fen", 24039: "qiao", 20122: "ya", 26970: "chu", 19969: "ding", 23004: "jiang", 22799: "xia", 20961: "fan", 39321: "xiang", 23011: "jiao", 39038: "gu", 27605: "bi", 20113: "yun", 33678: "sha", 23706: "lan", 38901: "yun", 35799: "shi", 33620: "li", 23433: "an", 29614: "wei", 28977: "yan", 23113: "wan", 37073: "zheng", 26366: "ceng", 20005: "yan", 26045: "shi", 33459: "fang", 23506: "han", 40644: "huang", 20446: "yu", 28949: "huan", 27859: "hong", 21346: "lu", 28034: "tu", 28904: "ye", 30408: "ying", 21033: "li", 20134: "yi", 30693: "zhi", 27754: "wang", 21490: "shi", 32834: "nie", 27431: "ou", 33564: "qian", 20964: "feng", 29723: "chen", 33489: "yuan", 27891: "yong", 23425: "ning", 39558: "luo", 23047: "jiao", 25463: "jie", 28789: "ling", 36213: "zhao", 33891: "dong", 33883: "ge", 34013: "lan", 27905: "jie", 38686: "xia", 25196: "yang", 34003: "bei", 40857: "long", 38064: "yu", 21331: "zhuo", 26144: "ying", 24609: "yi", 26000: "fei", 24425: "cai", 21776: "tang", 37085: "hao", 30427: "sheng", 29747: "lin", 30805: "shuo", 23157: "chan", 28386: "ying", 27803: "pei", 26417: "zhu", 35874: "xie", 29976: "gan", 20873: "ran", 38182: "jin", 24429: "peng", 23828: "cui", 31206: "qin", 19975: "wan", 21521: "xiang", 23578: "shang", 33298: "shu", 25104: "cheng", 36763: "xin", 24742: "yue", 28085: "han", 33464: "yun", 34074: "wei", 21697: "pin", 26361: "cao", 38634: "xue", 34183: "wei", 38593: "yan", 23194: "mei", 26580: "rou", 39640: "gao", 27946: "hong", 26607: "ke", 38771: "jin", 33437: "zhi", 23391: "meng", 20184: "fu", 37026: "xing", 24196: "zhuang", 24038: "zuo", 32676: "qun", 34425: "hong", 31481: "zhu", 27777: "qin", 32993: "hu", 26753: "liang", 30000: "tian", 27494: "wu", 35203: "tan", 35060: "pei", 29756: "qiong", 26342: "xi", 26771: "zi", 28113: "shu", 36182: "lai", 23159: "ting", 33993: "rong", 23125: "jie", 29634: "ke", 31168: "xiu", 27603: "yu", 22914: "ru", 39532: "ma", 20309: "he", 28966: "jiao", 32705: "weng", 29645: "zhen", 24518: "yi", 33487: "su", 20851: "guan", 20521: "qian", 24422: "yan", 33559: "ming", 40858: "gong", 36335: "lu", 33805: "ping", 23435: "song", 33707: "mo", 21333: "dan", 25935: "min", 20029: "li", 29734: "qi", 22025: "jia", 33729: "jing", 35328: "yan", 29744: "yan", 20237: "wu", 33804: "meng", 22999: "shan", 23567: "xiao", 34945: "yuan", 31526: "fu", 26354: "qu", 33721: "ying", 38472: "chen", 21556: "wu", 20911: "feng", 38889: "han", 39759: "wei", 24222: "pang", 21253: "bao", 33395: "yan", 20339: "jia", 27426: "huan", 29790: "rui", 28023: "hai", 26364: "man", 33714: "lian", 27029: "rong", 26472: "yang", 35768: "xu", 20110: "yu", 33539: "fan", 26611: "liu", 26230: "jing", 36234: "yue", 20070: "shu", 36814: "ying", 21525: "lv", 36154: "he", 27748: "tang", 28216: "you", 22253: "yuan", 23045: "ya", 31505: "xiao", 21494: "ye", 23609: "yin", 20195: "dai", 36126: "zhen", 20381: "yi", 20940: "ling", 34081: "cai", 33402: "yi", 26379: "peng", 28799: "can", 30495: "zhen", 22521: "pei", 35821: "yu", 36726: "yi", 20219: "ren", 40065: "lu", 20848: "lan", 26704: "tong", 38660: "xiao", 30707: "shi", 30333: "bai", 27575: "yin", 32946: "yu", 33655: "he", 27743: "jiang", 23385: "sun", 27611: "mao", 27573: "duan", 29275: "niu", 23071: "juan", 30591: "rui", 39336: "xin", 23459: "xuan", 32032: "su", 26519: "lin", 31461: "tong", 24420: "tong", 24847: "yi", 21608: "zhou", 25991: "wen", 27146: "fan", 35449: "zhan", 38446: "ruan", 27427: "xin", 40511: "hong", 30887: "bi", 33455: "xin", 20025: "dan", 23721: "yan", 22869: "yi", 24565: "nian", 37101: "guo", 38886: "wei", 38647: "lei", 38518: "tao", 39068: "yan", 20048: "le", 34122: "rui", 26161: "yu", 38379: "yan", 28201: "wen", 28103: "qi", 38065: "qian", 23395: "ji", 23039: "zi", 22937: "miao",
 	}
+
+	randomBytes = []byte("abcdefghjkmnpqrstuvwxyz123456789")
 )
 
 func (w words) Get() rune {
 	return w[rand.Intn(len(w)-1)]
+}
+
+func RandomBytes(min, max int, special bool) string {
+	r := rand.New(rand.NewSource(time.Now().UnixNano() + rand.Int63()))
+	size := min + r.Intn(max-min)
+	b := make([]byte, size)
+	r.Read(b[:])
+	for i, x := range b {
+		b[i] = randomBytes[x&31]
+	}
+	if special {
+		var lx = 0
+		for {
+			if lx > 2 {
+				break
+			}
+			l := r.Intn(size - 1)
+			if 'a' <= b[l] && b[l] <= 'z' {
+				b[l] = randomBytes[r.Intn(len(randomBytes)-1)]
+				lx++
+			}
+		}
+		lx = 0
+		for l, x := range b {
+			if l > 2 {
+				break
+			}
+			if 'a' <= x && x <= 'z' {
+				b[l] -= 'a' - 'A'
+				lx++
+			}
+		}
+	}
+	return string(b)
 }

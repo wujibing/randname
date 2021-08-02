@@ -12,7 +12,15 @@ import (
 
 func TestRand(t *testing.T) {
 	for i := 0; i < 100; i++ {
-		t.Log(Rand().GenerateUserName())
+		u := Rand()
+		u.generateTime = 1
+		u.GenerateUserName()
+		u.GeneratePassword()
+		if len(u.Username) > 17 {
+			t.Fatal(u.Username)
+		} else {
+			t.Log(u)
+		}
 	}
 }
 
